@@ -1,3 +1,118 @@
+export type Predator =
+    | "Alleycat"
+    | "Bagger"
+    | "Blood Leech"
+    | "Cleaver"
+    | "Consensualist"
+    | "Extortionist"
+    | "Farmer"
+    | "Graverobber"
+    | "Grim Reaper"
+    | "Montero"
+    | "Osiris"
+    | "Pursuer"
+    | "Roadside Killer"
+    | "Sandman"
+    | "Scene Queen"
+    | "Siren"
+    | "Trapdoor";
+
+export type Clan =
+    | "Banu Haqim"
+    | "Brujah"
+    | "Gangrel"
+    | "Hecata"
+    | "Lasombra"
+    | "Malkavian"
+    | "Ministry"
+    | "Nosferatu"
+    | "Ravnos"
+    | "Salubri"
+    | "Toreador"
+    | "Tremere"
+    | "Tzimisce"
+    | "Ventrue";
+
+export type Generation =
+    | "I"
+    | "II"
+    | "III"
+    | "IV"
+    | "V"
+    | "VI"
+    | "VII"
+    | "VIII"
+    | "IX"
+    | "X"
+    | "XI"
+    | "XII"
+    | "XIII"
+    | "XIV"
+    | "XV";
+
+export type AttributeValue = 1 | 2 | 3 | 4 | 5;
+
+export type Attributes = {
+    physical: {
+        strength: AttributeValue;
+        dexterity: AttributeValue;
+        stamina: AttributeValue;
+    };
+    social: {
+        charisma: AttributeValue;
+        manipulation: AttributeValue;
+        composure: AttributeValue;
+    };
+    mental: {
+        intelligence: AttributeValue;
+        wits: AttributeValue;
+        resolve: AttributeValue;
+    };
+};
+
+export type Discipline = {
+    level: number;
+    powers: string[];
+};
+
+export type SkillName =
+    | "Athletics"
+    | "Brawl"
+    | "Craft"
+    | "Drive"
+    | "Firearms"
+    | "Investigation"
+    | "Larceny"
+    | "Melee"
+    | "Performance"
+    | "Stealth"
+    | "Survival"
+    | "Animal Ken"
+    | "Etiquette"
+    | "Insight"
+    | "Intimidation"
+    | "Leadership"
+    | "Persuasion"
+    | "Streetwise"
+    | "Subterfuge"
+    | "Academics"
+    | "Awareness"
+    | "Finance"
+    | "Medicine"
+    | "Occult"
+    | "Politics"
+    | "Science"
+    | "Technology";
+
+export type Skill = 0 | 1 | 2 | 3 | 4 | 5 | { value: 0 | 1 | 2 | 3 | 4 | 5; specialty: string };
+
+export type Skills = Record<SkillName, Skill>;
+
+export type DamageCounter = {
+    superficialDamage: number;
+    aggravatedDamage: number;
+};
+
 export interface VtmCharacterSheet {
     name: string;
     chronicle: string;
@@ -5,59 +120,24 @@ export interface VtmCharacterSheet {
     concept: string;
     ambition: string;
     desire: string;
-    predator: string;
-    clan: string;
-    generation: number;
-    attributes: {
-        physical: {
-            strength: number;
-            dexterity: number;
-            stamina: number;
-        };
-        social: {
-            charisma: number;
-            manipulation: number;
-            resolve: number;
-        };
-        mental: {
-            perception: number;
-            intelligence: number;
-            wits: number;
-        };
+    predator: Predator;
+    clan: Clan;
+    generation: Generation;
+    attributes: Attributes;
+    health: {
+        max: number;
+        current: DamageCounter;
     };
-    health: number;
-    willpower: number;
-    skills: {
-        athletics: number;
-        brawl: number;
-        craft: number;
-        drive: number;
-        firearms: number;
-        melee: number;
-        larceny: number;
-        stealth: number;
-        survival: number;
-        animalken: number;
-        etiquette: number;
-        insight: number;
-        intimidation: number;
-        leadership: number;
-        performance: number;
-        persuasion: number;
-        streetwise: number;
-        subterfuge: number;
-        academics: number;
-        awareness: number;
-        finance: number;
-        investigation: number;
-        medicine: number;
-        occult: number;
-        politics: number;
-        science: number;
-        technology: number;
-    }
-    disciplines: Record<string, number>;
+    willpower: {
+        max: number;
+        current: DamageCounter;
+    };
+    skills: Skills;
+    disciplines: Record<string, Discipline>;
     resonance: string;
-    hunger: number;
-    humanity: number;
+    hunger: 0 | 1 | 2 | 3 | 4 | 5;
+    humanity: {
+        value: number;
+        stains: number; // Always initialized to 0 inside the function
+    };
 }

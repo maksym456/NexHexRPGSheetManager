@@ -23,7 +23,6 @@ const CharacterSheet: React.FC<CharacterSheetProps> = ({ character }) => {
                     <p><strong>Generation:</strong> {character.generation}</p>
                 </div>
             </header>
-
             <section className="attributes-section">
                 <h2>Attributes</h2>
                 <div className="grid">
@@ -37,40 +36,60 @@ const CharacterSheet: React.FC<CharacterSheetProps> = ({ character }) => {
                         <h3>Social</h3>
                         <p>Charisma: {character.attributes.social.charisma}</p>
                         <p>Manipulation: {character.attributes.social.manipulation}</p>
-                        <p>Resolve: {character.attributes.social.resolve}</p>
+                        <p>Composure: {character.attributes.social.composure}</p>
                     </div>
                     <div className="attribute-group">
                         <h3>Mental</h3>
-                        <p>Perception: {character.attributes.mental.perception}</p>
                         <p>Intelligence: {character.attributes.mental.intelligence}</p>
                         <p>Wits: {character.attributes.mental.wits}</p>
+                        <p>Resolve: {character.attributes.mental.resolve}</p>
                     </div>
                 </div>
             </section>
-
+            <section className="health-willpower-section">
+                <div className="health-grid">
+                    <div className="attribute-group">
+                        <h3>Health</h3>
+                        <p>Max: {character.health.max}</p>
+                        <p>Superficial Damage: {character.health.current.superficialDamage}</p>
+                        <p>Aggravated Damage: {character.health.current.aggravatedDamage}</p>
+                    </div>
+                    <div className="attribute-group">
+                        <h3>Willpower</h3>
+                        <p>Max: {character.willpower.max}</p>
+                        <p>Superficial Damage: {character.willpower.current.superficialDamage}</p>
+                        <p>Aggravated Damage: {character.willpower.current.aggravatedDamage}</p>
+                    </div>
+                </div>
+            </section>
             <section className="skills-section">
                 <h2>Skills</h2>
                 <div className="grid">
                     {Object.entries(character.skills).map(([key, value]) => (
                         <p key={key}>
-                            {key.charAt(0).toUpperCase() + key.slice(1)}: {value}
+                            {key.charAt(0).toUpperCase() + key.slice(1)}:{" "}
+                            {typeof value === "number" ? value : `${value.value} (Specialty: ${value.specialty})`}
                         </p>
                     ))}
                 </div>
             </section>
-
             <section className="disciplines-section">
                 <h2>Disciplines</h2>
                 <div className="grid">
                     {Object.entries(character.disciplines).map(([key, value]) => (
-                        <p key={key}>
-                            {key.charAt(0).toUpperCase() + key.slice(1)}: {value}
-                        </p>
+                        <div key={key} className="discipline">
+                            <p><strong>{key.charAt(0).toUpperCase() + key.slice(1)} (Level: {value.level})</strong></p>
+                            <ul>
+                                {value.powers.map((power, index) => (
+                                    <li key={index}>{power}</li>
+                                ))}
+                            </ul>
+                        </div>
                     ))}
                 </div>
             </section>
-
             <section className="resonance-hunger-humanity">
+                <h2>Status</h2>
                 <div className="grid">
                     <div className="attribute-group">
                         <p><strong>Resonance:</strong> {character.resonance}</p>
@@ -84,7 +103,7 @@ const CharacterSheet: React.FC<CharacterSheetProps> = ({ character }) => {
                 </div>
             </section>
         </div>
-);
+    );
 };
 
 export default CharacterSheet;
