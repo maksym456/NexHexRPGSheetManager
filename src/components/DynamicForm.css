@@ -1,0 +1,138 @@
+body {
+    font-family: 'Cormorant Garamond', serif;
+    background: #f7f4f0;
+    color: #000;
+    margin: 0;
+    padding: 0;
+}
+
+.dynamic-form {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.header-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.header-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-field label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.header-field input {
+    border: none;
+    border-bottom: 1px solid #333;
+    padding: 5px;
+    background: none;
+    font-size: 1em;
+    color: #000;
+    outline: none;
+    transition: border-bottom 0.2s ease-in-out;
+}
+
+.header-field input:focus {
+    border-bottom: 2px solid #000;
+}
+
+.attribute-groups {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.category {
+    background: #fafafa;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.category-title {
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 15px;
+    color: #000;
+}
+
+.attribute {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.attribute label {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+}
+
+.attribute input {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1em;
+    border: none;
+    background: none;
+    color: #000;
+    text-align: center;
+    width: 30px;
+    outline: none;
+}
+
+.attribute input:focus {
+    outline: none;
+    border-bottom: 1px solid #000;
+}
+
+.total {
+    font-size: 1.3em;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+    color: #000;
+}
+
+.random-button {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.random-button:hover {
+    background-color: #555;
+}
+
+.header-input {
+    background: none;
+    border: none;
+    border-bottom: 1px solid #000;
+    color: #000;
+    outline: none;
+    padding: 2px 4px;
+}

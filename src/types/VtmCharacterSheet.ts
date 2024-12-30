@@ -136,8 +136,5 @@ export interface VtmCharacterSheet {
     disciplines: Record<string, Discipline>;
     resonance: string;
     hunger: 0 | 1 | 2 | 3 | 4 | 5;
-    humanity: {
-        value: number;
-        stains: number; // Always initialized to 0 inside the function
-    };
+    humanity: number;
 }

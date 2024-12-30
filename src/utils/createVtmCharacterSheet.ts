@@ -11,7 +11,7 @@ function calculateWillpower(composure: AttributeValue, resolve: AttributeValue):
     return composure + resolve;
 }
 
-export function createVtmCharacterSheet(input: Omit<Partial<VtmCharacterSheet>, "health" | "willpower" | "humanity">): VtmCharacterSheet {
+export function createVtmCharacterSheet(input: Omit<Partial<VtmCharacterSheet>, "health" | "willpower">): VtmCharacterSheet {
     const {
         name,
         chronicle,
@@ -40,6 +40,7 @@ export function createVtmCharacterSheet(input: Omit<Partial<VtmCharacterSheet>, 
     if (!clan) throw new Error("Invalid or missing clan.");
     if (!generation) throw new Error("Invalid or missing generation.");
     if (!attributes) throw new Error("Invalid or missing attributes.");
+    if (!humanity) throw new Error("Invalid or missing humanity.");
     const { physical, social, mental } = attributes;
     if (!physical || !social || !mental) throw new Error("Attributes must include physical, social, and mental.");
 
@@ -56,13 +57,7 @@ export function createVtmCharacterSheet(input: Omit<Partial<VtmCharacterSheet>, 
     }
 
     if (hunger == null || hunger < 0 || hunger > 5) throw new Error("Hunger must be between 0 and 5.");
-    if (!humanity) throw new Error("Humanity must be defined.");
-    const { value } = humanity;
-    const stains = 0;
-    if (value < 0 || value > 10) throw new Error("Humanity value must be between 0 and 10.");
-    if (value > 0 && stains > 10 - value) {
-        throw new Error(`Humanity stains must be between 0 and ${10 - value} for humanity value ${value}.`);
-    }
+    if (humanity < 0 || humanity > 10) throw new Error("Humanity value must be between 0 and 10.");
 
     const maxHealth = calculateHealth(physical.stamina, disciplines);
     const maxWillpower = calculateWillpower(social.composure, mental.resolve);
@@ -82,10 +77,7 @@ export function createVtmCharacterSheet(input: Omit<Partial<VtmCharacterSheet>, 
         disciplines,
         resonance: resonance || "None",
         hunger,
-        humanity: {
-            value,
-            stains,
-        },
+        humanity: humanity,
         health: {
             max: maxHealth,
             current: {

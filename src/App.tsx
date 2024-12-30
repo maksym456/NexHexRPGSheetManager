@@ -1,7 +1,9 @@
 import React from "react";
 import CharacterSheet from "./components/CharacterSheet";
+import DynamicForm from './components/TestComponent';
 import { createVtmCharacterSheet } from "./utils/createVtmCharacterSheet"; // Adjust path to match your file structure
 import { VtmCharacterSheet } from "./types/VtmCharacterSheet";
+
 
 const App: React.FC = () => {
     const mockCharacter: VtmCharacterSheet = createVtmCharacterSheet({
@@ -54,12 +56,15 @@ const App: React.FC = () => {
         },
         resonance: "Sanguine",
         hunger: 2,
-        humanity: {
-            value: 7, // Only provide the value, stains will be set to 0 automatically
-        },
+        humanity: 6
     });
 
-    return <CharacterSheet character={mockCharacter} />;
+    return (
+        <>
+            <CharacterSheet character={mockCharacter} />
+            <DynamicForm />
+        </>
+    );
 };
 
 export default App;
