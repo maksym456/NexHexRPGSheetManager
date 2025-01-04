@@ -1,6 +1,6 @@
 import React from "react";
 import CharacterSheet from "./components/CharacterSheet";
-import DynamicForm from './components/TestComponent';
+import DynamicForm from './components/DynamicForm.tsx';
 import { createVtmCharacterSheet } from "./utils/createVtmCharacterSheet"; // Adjust path to match your file structure
 import { VtmCharacterSheet } from "./types/VtmCharacterSheet";
 
