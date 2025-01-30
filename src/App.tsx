@@ -4,7 +4,7 @@ import DynamicForm from './components/DynamicForm.tsx';
 import { createVtmCharacterSheet } from "./utils/createVtmCharacterSheet"; // Adjust path to match your file structure
 import { VtmCharacterSheet } from "./types/VtmCharacterSheet";
 
-
+//hola
 const App: React.FC = () => {
     const mockCharacter: VtmCharacterSheet = createVtmCharacterSheet({
         name: "John Doe",
