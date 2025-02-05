@@ -75,8 +75,6 @@ const DynamicForm: React.FC = () => {
             const response = await fetch(url);
             if (!response.ok) throw new Error('Failed to fetch data');
             const data: Partial<CharacterData> = await response.json();
-
-            // Validate keys and apply defaults
             setCharacterData((prev) => ({
                 ...prev,
                 name: typeof data.name === 'string' ? data.name : prev.name,
