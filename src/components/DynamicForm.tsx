@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react';
 import './DynamicForm.css';
+import { addDoc, collection} from "firebase/firestore";
+import { db } from "../firebaseConfig.ts";
 
 type CharacterData = {
     name?: string;
@@ -73,7 +75,6 @@ const DynamicForm: React.FC = () => {
     const fetchData = async (url: string) => {
         try {
             const response = await fetch(url);
-            if (!response.ok) throw new Error('Failed to fetch data');
             const data: Partial<CharacterData> = await response.json();
             setCharacterData((prev) => ({
                 ...prev,
@@ -102,25 +103,54 @@ const DynamicForm: React.FC = () => {
         }
     };
 
-    const exportData = () => {
+    // const exportData = () => {
+    //     const calculatedField = {
+    //         totalResolveComposure: (characterData.resolve || 0) + (characterData.composure || 0),
+    //     };
+    //
+    //     const dataToExport = {
+    //         ...characterData,
+    //         ...calculatedField,
+    //     };
+    //
+    //     const dataStr = JSON.stringify(dataToExport, null, 2);
+    //     const blob = new Blob([dataStr], { type: 'application/json' });
+    //     const url = URL.createObjectURL(blob);
+    //     const link = document.createElement('a');
+    //     link.href = url;
+    //     link.download = 'character.json';
+    //     document.body.appendChild(link);
+    //     link.click();
+    //     document.body.removeChild(link);
+    // };
+    const saveToFirestore = async () => {
         const calculatedField = {
             totalResolveComposure: (characterData.resolve || 0) + (characterData.composure || 0),
         };
-
-        const dataToExport = {
+        const dataToSave = {
             ...characterData,
             ...calculatedField,
-        };
-
-        const dataStr = JSON.stringify(dataToExport, null, 2);
-        const blob = new Blob([dataStr], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'character.json';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+            name: characterData.name, // string
+            concept: characterData.concept, // string
+            predator: characterData.predator, // string
+            chronicle: characterData.chronicle, // string
+            ambition: characterData.ambition, // string
+            clan: characterData.clan, // string
+            sire: characterData.sire, // string
+            desire: characterData.desire, // string
+            generation: characterData.generation, // string or number?
+            strength: characterData.strength, // number
+            dexterity: characterData.dexterity, // number
+            stamina: characterData.stamina, // number
+            charisma: characterData.charisma, // number
+            manipulation: characterData.manipulation, // number
+            composure: characterData.composure, // number
+            intelligence: characterData.intelligence, // number
+            wits: characterData.wits, // number
+            resolve: characterData.resolve, // number
+            };
+        await addDoc(collection(db, "sheet"), dataToSave);
+        console.log("Character data successfully saved to Firestore!");
     };
 
     return (
@@ -129,7 +159,7 @@ const DynamicForm: React.FC = () => {
                 <button onClick={() => fetchData('/path/to/character.json')} className="fetch-button">
                     Fetch Character Data
                 </button>
-                <button onClick={exportData} className="export-button">
+                <button onClick={saveToFirestore} className="export-button">
                     Export Character Data
                 </button>
             </div>
