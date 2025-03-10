@@ -160,7 +160,7 @@ const DynamicForm: React.FC = () => {
                     Fetch Character Data
                 </button>
                 <button onClick={saveToFirestore} className="export-button">
-                    Export Character Data
+                    Save to Firestore
                 </button>
             </div>
 

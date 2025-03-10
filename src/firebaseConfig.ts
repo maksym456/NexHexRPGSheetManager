@@ -1,12 +1,7 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { getAuth, signInAnonymously } from "firebase/auth";
 
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_API_KEY,
     authDomain: import.meta.env.VITE_AUTH_DOMAIN,
@@ -15,9 +10,19 @@ const firebaseConfig = {
     storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
     appId: import.meta.env.VITE_APP_ID,
 };
-
-// Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
-export const auth = getAuth(firebaseApp);
-export const analytics = getAnalytics(firebaseApp);
+const auth = getAuth();
+
+signInAnonymously(auth)
+    .then((userCredential) => {
+        console.log("signed in anonymously", userCredential.user.uid)
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        console.log(errorCode)
+        const errorMessage = error.message;
+        console.log(errorMessage)
+    });
+
 export const db = getFirestore(firebaseApp);
+console.log(db)
